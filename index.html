@@ -1,1 +1,524 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Hanshni</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Dancing+Script:wght@500;700&display=swap');
+
+  :root{
+    --ink:#141b2e;
+    --ink-deep:#0b0f1c;
+    --paper:#f7f1e8;
+    --gold:#d4af6a;
+    --blush:#e8c4c0;
+    --text-light:#f0e9dc;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--ink-deep);
+    background-image:
+      radial-gradient(ellipse at 30% 10%, rgba(212,175,106,0.08), transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(232,196,192,0.05), transparent 50%);
+    color:var(--text-light);
+    font-family:'Cormorant Garamond', serif;
+    overflow-x:hidden;
+  }
+
+  /* floating particles */
+  .stars{
+    position:fixed; inset:0; pointer-events:none; z-index:1;
+  }
+  .star{
+    position:absolute;
+    width:2px; height:2px;
+    background:var(--gold);
+    border-radius:50%;
+    opacity:0.4;
+    animation:twinkle 4s ease-in-out infinite;
+  }
+  @keyframes twinkle{
+    0%,100%{opacity:0.15;}
+    50%{opacity:0.7;}
+  }
+
+  section{
+    min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:8vh 7vw;
+    position:relative;
+    z-index:2;
+  }
+
+  /* ---- Opening ---- */
+  .opening .eyebrow{
+    font-family:'Playfair Display', serif;
+    font-style:italic;
+    font-size:1rem;
+    letter-spacing:0.15em;
+    color:var(--blush);
+    opacity:0.75;
+    margin-bottom:2rem;
+    text-align:center;
+  }
+
+  .opening .headline{
+    font-family:'Dancing Script', cursive;
+    font-size:clamp(2.8rem, 8vw, 5.5rem);
+    color:var(--gold);
+    text-align:center;
+    line-height:1.15;
+  }
+
+  .opening .sub{
+    font-size:1.25rem;
+    color:var(--text-light);
+    opacity:0.65;
+    text-align:center;
+    margin-top:2rem;
+    max-width:36ch;
+    line-height:1.6;
+    font-style:italic;
+  }
+
+  .scroll-down{
+    margin-top:5vh;
+    font-family:'Cormorant Garamond', serif;
+    font-size:0.85rem;
+    letter-spacing:0.25em;
+    text-transform:uppercase;
+    color:var(--blush);
+    opacity:0.5;
+    animation:bob 2.5s ease-in-out infinite;
+  }
+  @keyframes bob{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(8px);}
+  }
+
+  /* ---- Reflection section ---- */
+  .reflection{
+    max-width:640px;
+    text-align:center;
+  }
+
+  .reflection .label{
+    font-family:'Playfair Display', serif;
+    font-style:italic;
+    color:var(--gold);
+    font-size:1rem;
+    letter-spacing:0.1em;
+    margin-bottom:2.5rem;
+    opacity:0.85;
+  }
+
+  .reflection p{
+    font-size:1.5rem;
+    line-height:1.85;
+    color:var(--text-light);
+    opacity:0.9;
+    margin-bottom:1.8rem;
+  }
+
+  .reflection p.placeholder{
+    border-left:2px solid var(--gold);
+    padding-left:1.5rem;
+    text-align:left;
+    font-style:italic;
+    opacity:0.55;
+    font-size:1.25rem;
+  }
+
+  /* ---- Polaroid chat cards ---- */
+  .polaroid-grid{
+    display:flex;
+    flex-wrap:wrap;
+    gap:2.2rem;
+    justify-content:center;
+    margin-top:3rem;
+  }
+
+  .polaroid{
+    background:var(--paper);
+    padding:1rem 1rem 2.2rem;
+    width:230px;
+    border-radius:2px;
+    box-shadow:0 20px 40px -12px rgba(0,0,0,0.5);
+    transform:rotate(var(--tilt, -3deg));
+    transition:transform 0.3s ease;
+  }
+
+  .polaroid:nth-child(2n){ --tilt:2.5deg; }
+  .polaroid:nth-child(3n){ --tilt:-1.5deg; }
+
+  .polaroid:hover{ transform:rotate(0deg) scale(1.04); }
+
+  .polaroid .chat-snip{
+    background:var(--ink);
+    border-radius:4px;
+    padding:1rem 0.9rem;
+    min-height:110px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .polaroid .chat-snip span{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:0.95rem;
+    color:var(--text-light);
+    opacity:0.5;
+    text-align:center;
+    line-height:1.5;
+  }
+
+  .polaroid .cap{
+    font-family:'Dancing Script', cursive;
+    font-size:1.2rem;
+    color:var(--ink);
+    text-align:center;
+    margin-top:0.9rem;
+  }
+
+  /* ---- Features / photo section ---- */
+  .features-section{
+    max-width:680px;
+    text-align:center;
+  }
+
+  .features-section .photo-frame{
+    width:min(70vw, 320px);
+    aspect-ratio:4/5;
+    background:var(--ink);
+    border:1px solid rgba(212,175,106,0.3);
+    border-radius:6px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 3.5rem;
+    box-shadow:0 30px 70px -20px rgba(0,0,0,0.6);
+    overflow:hidden;
+  }
+
+  .features-section .photo-frame img{
+    width:100%; height:100%; object-fit:cover;
+  }
+
+  .features-section .photo-frame span{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    opacity:0.4;
+    font-size:0.95rem;
+  }
+
+  .feature-line{
+    font-size:1.35rem;
+    line-height:1.7;
+    color:var(--text-light);
+    opacity:0.55;
+    font-style:italic;
+    border-left:2px solid var(--blush);
+    padding-left:1.5rem;
+    text-align:left;
+    max-width:44ch;
+    margin:0 auto 1.6rem;
+  }
+
+  /* ---- Video section ---- */
+  .video-section{
+    max-width:560px;
+    text-align:center;
+  }
+
+  .video-section .label{
+    font-family:'Playfair Display', serif;
+    font-style:italic;
+    color:var(--gold);
+    font-size:1rem;
+    letter-spacing:0.1em;
+    margin-bottom:2rem;
+  }
+
+  .video-frame{
+    width:100%;
+    border-radius:6px;
+    overflow:hidden;
+    box-shadow:0 30px 70px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(212,175,106,0.2);
+  }
+
+  video{
+    width:100%;
+    display:block;
+    background:var(--ink);
+  }
+
+  .video-section .caption{
+    margin-top:1.5rem;
+    font-size:1.05rem;
+    font-style:italic;
+    color:var(--text-light);
+    opacity:0.6;
+  }
+
+  /* ---- The ask ---- */
+  .ask{
+    text-align:center;
+  }
+
+  .ask .pre{
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.15rem;
+    color:var(--blush);
+    opacity:0.7;
+    letter-spacing:0.05em;
+    margin-bottom:1.5rem;
+  }
+
+  .ask .question{
+    font-family:'Dancing Script', cursive;
+    font-size:clamp(2.6rem, 7vw, 4.5rem);
+    color:var(--gold);
+    line-height:1.2;
+    max-width:14ch;
+    margin-bottom:3.5rem;
+  }
+
+  .yes-btn, .no-btn{
+    font-family:'Playfair Display', serif;
+    font-size:1.3rem;
+    letter-spacing:0.05em;
+    background:transparent;
+    border-radius:50px;
+    cursor:pointer;
+    transition:all 0.4s ease;
+  }
+
+  .yes-btn{
+    color:var(--gold);
+    border:1.5px solid var(--gold);
+    padding:1.1rem 3.2rem;
+  }
+
+  .yes-btn:hover{
+    background:var(--gold);
+    color:var(--ink-deep);
+    transform:scale(1.05);
+    box-shadow:0 10px 40px rgba(212,175,106,0.35);
+  }
+
+  .btn-row{
+    display:flex;
+    gap:1.5rem;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+
+  .no-btn{
+    color:var(--text-light);
+    opacity:0.6;
+    border:1.5px solid rgba(240,233,220,0.35);
+    padding:1.1rem 2.6rem;
+  }
+
+  .no-btn:hover{
+    opacity:0.85;
+    border-color:rgba(240,233,220,0.6);
+  }
+
+  .no-parked{
+    position:fixed;
+    bottom:2rem;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:10;
+  }
+
+  /* ---- Response reveal ---- */
+  .response{
+    display:none;
+    text-align:center;
+  }
+
+  .response.show{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .response .big{
+    font-family:'Dancing Script', cursive;
+    font-size:clamp(3rem, 9vw, 6rem);
+    color:var(--gold);
+    margin-bottom:1.5rem;
+  }
+
+  .response p{
+    font-size:1.3rem;
+    color:var(--text-light);
+    opacity:0.85;
+    max-width:36ch;
+    line-height:1.7;
+    font-style:italic;
+  }
+
+  .ask.hidden{ display:none; }
+
+  .heart{
+    position:fixed;
+    top:-5vh;
+    font-size:1.2rem;
+    color:var(--blush);
+    opacity:0.7;
+    animation:fall linear forwards;
+    z-index:5;
+    pointer-events:none;
+  }
+
+  @keyframes fall{
+    to{ transform:translateY(110vh) rotate(360deg); opacity:0; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .scroll-down{ animation:none; }
+    .star{ animation:none; opacity:0.4; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<section class="opening">
+  <div class="eyebrow">and yet</div>
+  <h1 class="headline">for Hanshni</h1>
+  <p class="sub">Some things don't need time to become true. They just need to be said honestly, when they're felt.</p>
+  <div class="scroll-down">scroll ↓</div>
+</section>
+
+<section class="reflection">
+  <div class="label">what these days have been</div>
+
+  <p class="placeholder">[ PLACEHOLDER — tell her what these past few days actually felt like. What changed the moment you met her. Be specific, be real, don't rush this part. ]</p>
+
+  <p class="placeholder">[ PLACEHOLDER — what made you choose her. Not generic "she's amazing" — the actual thing, the moment or quality that did it for you. ]</p>
+
+  <div class="polaroid-grid">
+    <div class="polaroid">
+      <div class="chat-snip"><span>[ paste a text/chat screenshot here — one that meant something ]</span></div>
+      <div class="cap">[ caption ]</div>
+    </div>
+    <div class="polaroid">
+      <div class="chat-snip"><span>[ paste a text/chat screenshot here ]</span></div>
+      <div class="cap">[ caption ]</div>
+    </div>
+    <div class="polaroid">
+      <div class="chat-snip"><span>[ paste a text/chat screenshot here ]</span></div>
+      <div class="cap">[ caption ]</div>
+    </div>
+  </div>
+
+  <p class="placeholder" style="margin-top:3rem;">[ PLACEHOLDER — what you want her to know before the next part. This is the last thing she reads before the photo. Make it count. ]</p>
+</section>
+
+<section class="features-section">
+  <div class="label" style="text-align:center;">how I see her</div>
+  <div class="photo-frame">
+    <img src="hanshni.jpg" alt="" onerror="this.style.display='none'; this.parentElement.querySelector('span').style.display='block';">
+    <span style="display:none;">[ drop hanshni.jpg in the folder ]</span>
+  </div>
+
+  <div class="feature-line">[ PLACEHOLDER — something about her eyes, or her smile, whatever's actually true for you. Don't force all of them, just the ones that are real. ]</div>
+  <div class="feature-line">[ PLACEHOLDER — another feature or thing about her you find beautiful. ]</div>
+  <div class="feature-line">[ PLACEHOLDER — one more, can be about how she carries herself, not just looks. ]</div>
+</section>
+
+<section class="video-section">
+  <div class="label">something I'd rather say out loud</div>
+  <div class="video-frame">
+    <video controls>
+      <source src="message.mp4" type="video/mp4">
+      Your browser doesn't support video playback.
+    </video>
+  </div>
+  <p class="caption">watch this before you keep going</p>
+</section>
+
+<section id="askSection">
+  <div class="ask" id="askBlock">
+    <p class="pre">so, Hanshni &mdash;</p>
+    <p class="question">will you be mine?</p>
+    <div class="btn-row">
+      <button class="yes-btn" id="yesBtn">yes</button>
+      <button class="no-btn" id="noBtn">no</button>
+    </div>
+  </div>
+
+  <div class="response" id="responseBlock">
+    <div class="big">she said yes</div>
+    <p>[ PLACEHOLDER — a final line for after she says yes. Keep it short, let the moment breathe. ]</p>
+  </div>
+</section>
+
+<script>
+  // Generate ambient stars
+  const starsContainer = document.getElementById('stars');
+  for(let i=0; i<40; i++){
+    const s = document.createElement('div');
+    s.className = 'star';
+    s.style.left = Math.random()*100 + 'vw';
+    s.style.top = Math.random()*100 + 'vh';
+    s.style.animationDelay = (Math.random()*4) + 's';
+    starsContainer.appendChild(s);
+  }
+
+  // Yes button interaction
+  const yesBtn = document.getElementById('yesBtn');
+  const noBtn = document.getElementById('noBtn');
+  const askBlock = document.getElementById('askBlock');
+  const responseBlock = document.getElementById('responseBlock');
+
+  let noClicks = 0;
+  noBtn.addEventListener('click', () => {
+    noClicks++;
+    if(noClicks === 1){
+      // relocate "no" to the bottom of the page, fully clickable there
+      noBtn.classList.add('no-parked');
+      document.body.appendChild(noBtn);
+      noBtn.textContent = 'still no';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
+
+  yesBtn.addEventListener('click', () => {
+    askBlock.classList.add('hidden');
+    responseBlock.classList.add('show');
+    if(noBtn.parentElement) noBtn.remove();
+    spawnHearts();
+  });
+
+  function spawnHearts(){
+    const symbols = ['♥','✦','❀'];
+    for(let i=0; i<28; i++){
+      setTimeout(() => {
+        const h = document.createElement('div');
+        h.className = 'heart';
+        h.textContent = symbols[Math.floor(Math.random()*symbols.length)];
+        h.style.left = Math.random()*100 + 'vw';
+        h.style.fontSize = (0.9 + Math.random()*1.2) + 'rem';
+        h.style.animationDuration = (3 + Math.random()*3) + 's';
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 6500);
+      }, i*90);
+    }
+  }
+</script>
+
+</body>
+</html>
