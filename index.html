@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -333,11 +332,17 @@
   }
 
   .no-parked{
-    position:fixed;
-    bottom:2rem;
-    left:50%;
-    transform:translateX(-50%);
-    z-index:10;
+    position:static;
+    display:block;
+    margin:0 auto;
+  }
+
+  .no-parked-wrap{
+    min-height:60vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:8vh 7vw;
   }
 
   /* ---- Response reveal ---- */
@@ -466,6 +471,8 @@
   </div>
 </section>
 
+<div class="no-parked-wrap" id="noParkedWrap"></div>
+
 <script>
   // Generate ambient stars
   const starsContainer = document.getElementById('stars');
@@ -488,11 +495,10 @@
   noBtn.addEventListener('click', () => {
     noClicks++;
     if(noClicks === 1){
-      // relocate "no" to the bottom of the page, fully clickable there
+      // relocate "no" to an actual spot at the bottom of the page
       noBtn.classList.add('no-parked');
-      document.body.appendChild(noBtn);
+      document.getElementById('noParkedWrap').appendChild(noBtn);
       noBtn.textContent = 'still no';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   });
 
