@@ -33,6 +33,7 @@
   /* floating particles */
   .stars{
     position:fixed; inset:0; pointer-events:none; z-index:1;
+    transition:transform 0.1s linear;
   }
   .star{
     position:absolute;
@@ -371,6 +372,14 @@
     max-width:36ch;
     line-height:1.7;
     font-style:italic;
+    margin-bottom:1.2rem;
+  }
+
+  .response .closing-note{
+    margin-top:2.5rem;
+    font-size:1.15rem;
+    opacity:0.65;
+    max-width:34ch;
   }
 
   .ask.hidden{ display:none; }
@@ -444,6 +453,14 @@
   <div class="feature-line">[ PLACEHOLDER — one more, can be about how she carries herself, not just looks. ]</div>
 </section>
 
+<section class="reflection">
+  <div class="label">what I hope to give you</div>
+
+  <p class="placeholder">[ PLACEHOLDER — not what you want from her, what you want for her. Peace after a hard stretch, someone steady, whatever's actually true. ]</p>
+
+  <p class="placeholder">[ PLACEHOLDER — one more thing you hope she gets to feel with you, that maybe she hasn't felt before. ]</p>
+</section>
+
 <section class="video-section">
   <div class="label">something I'd rather say out loud</div>
   <div class="video-frame">
@@ -467,23 +484,47 @@
 
   <div class="response" id="responseBlock">
     <div class="big">she said yes</div>
-    <p>[ PLACEHOLDER — a final line for after she says yes. Keep it short, let the moment breathe. ]</p>
+    <p>[ PLACEHOLDER — a final line for right after she says yes. Keep it short, let the moment breathe. ]</p>
+    <p class="closing-note">[ PLACEHOLDER — this page ends here, but say something about it not being the end of anything real — this is a start, not a finished thing. ]</p>
   </div>
 </section>
 
 <div class="no-parked-wrap" id="noParkedWrap"></div>
 
 <script>
-  // Generate ambient stars
+  // Generate ambient stars — two depth layers for a parallax feel
   const starsContainer = document.getElementById('stars');
-  for(let i=0; i<40; i++){
+  const nearStars = [];
+  const farStars = [];
+
+  for(let i=0; i<70; i++){
     const s = document.createElement('div');
     s.className = 'star';
     s.style.left = Math.random()*100 + 'vw';
-    s.style.top = Math.random()*100 + 'vh';
+    s.style.top = Math.random()*300 + 'vh';
     s.style.animationDelay = (Math.random()*4) + 's';
+    s.style.width = s.style.height = '2px';
     starsContainer.appendChild(s);
+    farStars.push(s);
   }
+
+  for(let i=0; i<35; i++){
+    const s = document.createElement('div');
+    s.className = 'star';
+    s.style.left = Math.random()*100 + 'vw';
+    s.style.top = Math.random()*300 + 'vh';
+    s.style.animationDelay = (Math.random()*4) + 's';
+    s.style.width = s.style.height = '3px';
+    s.style.opacity = '0.6';
+    starsContainer.appendChild(s);
+    nearStars.push(s);
+  }
+
+  // Background drifts with scroll — near layer moves faster than far layer
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    starsContainer.style.transform = `translateY(${y * -0.15}px)`;
+  }, { passive:true });
 
   // Yes button interaction
   const yesBtn = document.getElementById('yesBtn');
